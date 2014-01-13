@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.ericguerra.splitit" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+  <name>SplitIt</name>
+  <description>Split group expenses and settle up</description>
+  <content src="index.html"/>
+  <access origin="https://*.firebaseio.com"/>
+  <access origin="https://*.googleapis.com"/>
+  <preference name="Orientation" value="portrait"/>
+  <plugin name="cordova-plugin-x-socialsharing" spec="^6.0.4"/>
+  <plugin name="cordova-plugin-statusbar" spec="^3.0.0"/>
+</widget>
