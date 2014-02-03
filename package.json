@@ -1,0 +1,12 @@
+{
+  "name": "splitit",
+  "version": "1.0.0",
+  "description": "Group expense splitting app: Ionic + Cordova + Firebase",
+  "private": true,
+  "scripts": {
+    "serve": "npx http-server www -p 8100",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": { "node": ">=21" },
+  "license": "MIT"
+}
