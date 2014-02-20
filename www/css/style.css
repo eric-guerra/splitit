@@ -1,0 +1,7 @@
+.brand { text-align: center; color: #33cd5f; font-weight: 800; font-size: 40px; margin: 80px 0 8px; }
+.center { text-align: center; }
+.muted { color: #888; }
+.summary { text-align: center; padding: 24px; background: #f8f8f8; font-size: 16px; }
+.summary strong { display: block; font-size: 32px; margin-top: 4px; }
+.summary.owed strong { color: #33cd5f; } .summary.owes strong { color: #ef473a; }
+.split-value { width: 80px; margin-left: 12px; border-bottom: 1px solid #ddd !important; }
