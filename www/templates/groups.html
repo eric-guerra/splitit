@@ -1,0 +1,21 @@
+<ion-view view-title="Groups">
+  <ion-nav-buttons side="left"><button class="button button-clear" ng-click="vm.signOut()">Sign out</button></ion-nav-buttons>
+  <ion-nav-buttons side="right"><button class="button button-icon ion-plus" ng-click="vm.create()"></button></ion-nav-buttons>
+  <ion-content>
+    <div class="padding center" ng-if="!vm.groups"><ion-spinner></ion-spinner></div>
+    <div class="list">
+      <a class="item item-icon-right" ng-repeat="g in vm.groups" ui-sref="group({id: g.id})">
+        <h2>{{g.name}}</h2>
+        <p>{{g.memberCount}} member{{g.memberCount === 1 ? '' : 's'}}</p>
+        <i class="icon ion-chevron-right"></i>
+      </a>
+    </div>
+    <div class="padding" ng-if="vm.groups && !vm.groups.length">
+      <p class="center muted">No groups yet.</p>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-balanced" ng-click="vm.create()">Create a group</button>
+      <button class="button button-block button-outline button-balanced" ng-click="vm.join()">Join with a code</button>
+    </div>
+  </ion-content>
+</ion-view>
