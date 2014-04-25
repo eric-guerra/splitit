@@ -1,0 +1,31 @@
+<ion-view view-title="Add expense">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input"><input type="text" placeholder="What was it for?" ng-model="vm.form.description" maxlength="80"></label>
+      <label class="item item-input"><span class="input-label">Amount $</span><input type="text" inputmode="decimal" placeholder="0.00" ng-model="vm.form.amount"></label>
+      <label class="item item-input item-select">
+        <div class="input-label">Paid by</div>
+        <select ng-model="vm.form.paidBy" ng-options="m.uid as m.name for m in vm.members"></select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">Split</div>
+        <select ng-model="vm.form.type">
+          <option value="equal">Equally</option>
+          <option value="exact">Exact amounts</option>
+          <option value="percent">Percentages</option>
+          <option value="shares">Shares</option>
+        </select>
+      </label>
+      <div class="item item-divider">Between</div>
+      <div class="item item-checkbox" ng-repeat="m in vm.members">
+        <label class="checkbox"><input type="checkbox" ng-model="vm.form.included[m.uid]"></label>
+        {{m.name}}
+        <input class="split-value" ng-if="vm.form.type !== 'equal' && vm.form.included[m.uid]" ng-model="vm.form.values[m.uid]"
+               placeholder="{{vm.form.type === 'exact' ? '$' : vm.form.type === 'percent' ? '%' : 'shares'}}">
+        <span class="item-note">{{vm.preview()[m.uid] | money}}</span>
+      </div>
+    </div>
+    <p class="padding assertive" ng-if="vm.previewError">{{vm.previewError}}</p>
+    <div class="padding"><button class="button button-block button-balanced" ng-disabled="vm.previewError" ng-click="vm.save()">Save expense</button></div>
+  </ion-content>
+</ion-view>

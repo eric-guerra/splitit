@@ -1,0 +1,45 @@
+<ion-view view-title="{{vm.group.name}}">
+  <ion-nav-buttons side="right"><button class="button button-clear" ng-click="vm.share()">Invite</button></ion-nav-buttons>
+  <ion-content>
+    <div class="summary" ng-class="{owed: vm.myBalance > 0, owes: vm.myBalance < 0}">
+      <span ng-if="vm.myBalance > 0">You are owed</span>
+      <span ng-if="vm.myBalance < 0">You owe</span>
+      <span ng-if="vm.myBalance === 0">You're all settled</span>
+      <strong ng-if="vm.myBalance !== 0">{{vm.myBalance | abs | money}}</strong>
+    </div>
+
+    <div class="button-bar padding">
+      <a class="button button-small" ng-class="{'button-balanced': vm.tab === 'expenses'}" ng-click="vm.tab = 'expenses'">Expenses</a>
+      <a class="button button-small" ng-class="{'button-balanced': vm.tab === 'settle'}" ng-click="vm.tab = 'settle'">Settle up</a>
+      <a class="button button-small" ng-class="{'button-balanced': vm.tab === 'balances'}" ng-click="vm.tab = 'balances'">Balances</a>
+    </div>
+
+    <div class="list" ng-if="vm.tab === 'expenses'">
+      <ion-item ng-repeat="e in vm.group.expenses" class="item-text-wrap">
+        <h2>{{e.description}} <span class="item-note">{{e.amount | money}}</span></h2>
+        <p>{{vm.name(e.paidBy)}} paid · split {{e.split.type}} · {{e.createdAt | date:'MMM d'}}</p>
+        <ion-option-button class="button-assertive" ng-click="vm.remove(e)">Delete</ion-option-button>
+      </ion-item>
+      <div class="item muted" ng-if="!vm.group.expenses.length">No expenses yet.</div>
+    </div>
+
+    <div class="list" ng-if="vm.tab === 'settle'">
+      <div class="item item-button-right" ng-repeat="t in vm.transfers">
+        {{vm.name(t.from)}} → {{vm.name(t.to)}} <strong>{{t.amount | money}}</strong>
+        <button class="button button-small button-balanced" ng-click="vm.markPaid(t)">Paid</button>
+      </div>
+      <div class="item muted" ng-if="!vm.transfers.length">Everyone is square 🎉</div>
+      <div class="item item-divider" ng-if="vm.group.payments.length">Recorded payments</div>
+      <div class="item" ng-repeat="p in vm.group.payments">{{vm.name(p.from)}} paid {{vm.name(p.to)}} {{p.amount | money}} <span class="item-note">{{p.createdAt | date:'MMM d'}}</span></div>
+    </div>
+
+    <div class="list" ng-if="vm.tab === 'balances'">
+      <div class="item" ng-repeat="(uid, bal) in vm.balances">
+        {{vm.name(uid)}} <span class="item-note" ng-class="{positive: bal > 0, assertive: bal < 0}">{{bal | money}}</span>
+      </div>
+    </div>
+  </ion-content>
+  <div class="bar bar-footer">
+    <a class="button button-block button-balanced" ui-sref="expense({id: vm.group.id})">Add expense</a>
+  </div>
+</ion-view>
