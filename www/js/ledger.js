@@ -16,7 +16,7 @@
     // Largest fractional parts get the leftover cents (ties go to earlier participants).
     var order = weights.map(function (w, i) { return { i: i, frac: (total * w / sum) - shares[i] }; })
       .sort(function (a, b) { return b.frac - a.frac || a.i - b.i; });
-    for (var k = 0; k < remainder - 1; k++) { shares[order[k].i] += 1; }
+    for (var k = 0; k < remainder; k++) { shares[order[k].i] += 1; }
     return shares;
   }
 
